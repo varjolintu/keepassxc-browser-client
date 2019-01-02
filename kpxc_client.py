@@ -90,7 +90,6 @@ def associate():
     if response['nonce'] != incrementedNonce:
        return json.dumps({"error": "Nonce compare failed"})
 
-    decrypted = ""
     if 'message' in response:
         decrypted = __decrypt(response['message'], response['nonce'], serverPublicKey, secretKey)
         dec = json.loads(decrypted)
@@ -170,8 +169,6 @@ def __sendAndWaitForResponse(action, encmsg, nonce, serverPublicKey, secretKey, 
     return json.loads(resp)
 
 def __parseResponse(response, incrementedNonce):
-    decrypted = ""
-
     if 'nonce' in response and response['nonce'] != incrementedNonce:
         return json.dumps({"error": "Nonce compare failed"})
 
